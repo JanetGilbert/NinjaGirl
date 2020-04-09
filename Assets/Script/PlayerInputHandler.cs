@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class PlayerInputHandler : MonoBehaviour
 {
-    private PlayerModel model;
+    private PlayerModel model;                      // The model
     [SerializeField]
-    private float runAcceloration, topRunSpeed;
+    private float runAcceloration, topRunSpeed;     // The acceloration and top speed of the player
     [SerializeField]
     [Range(0,1f)]
-    private float runDeadening;
+    private float runDeadening;                     // This value is used to decrease the running speed while not pushing any inputs
     [SerializeField]
-    float groundCheckOffset, groundCheckDistance;
+    float groundCheckOffset, groundCheckDistance;   // The offset and length of the raycast to check if the player is grounded
     bool jumpFlag;
     [SerializeField]
-    public float jumpForce;
+    public float jumpForce;                         // Force used to make the player jump
 
     private void Awake()
     {
+        // Instantiate the model and pass it the required components
         model = new PlayerModel(GetComponent<Rigidbody2D>(), GetComponent<BoxCollider2D>(), GetComponent<Animator>(), GetComponent<SpriteRenderer>());
     }
 
@@ -28,6 +29,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     void Update()
     {
+        // We read the input here because we don't want to miss the call but we want to run the jump code in fixed update so set a flag
         if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
         {
             jumpFlag = true;
@@ -47,6 +49,7 @@ public class PlayerInputHandler : MonoBehaviour
         // Check if the player is grounded
         model.GroundCheck(groundCheckOffset, groundCheckDistance);
 
+        // Exacute any waiting jump commands
         if(jumpFlag)
         {
             model.Jump(jumpForce);

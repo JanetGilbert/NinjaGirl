@@ -51,10 +51,13 @@ public class PlayerModel
             runAcc *= deadeningMultiplier;
         }
 
+        // Calculate the running velocity
         float vel = runAcc * topRunSpeed;
 
+        // Tell the animator the absolute velocity of the player
         animator.SetFloat("speed", Mathf.Abs(vel));
 
+        // Flip the sprite to face the correct direction
         if(vel >float.Epsilon)
         {
             sprite.flipX = false;
@@ -75,16 +78,19 @@ public class PlayerModel
     /// <param name="raycastDistance">The length of the raycast to check for ground.</param>
     public void GroundCheck(float distanceFromBody, float raycastDistance)
     {
+        // Calculate the offset from the object to avoid collision with self
         Vector2 rayOffset = new Vector2(0, -1 * collider.size.y / 2f - distanceFromBody);
 
         RaycastHit2D hit = Physics2D.Raycast(rb.position + rayOffset, Vector2.down, raycastDistance);
 
+        // Assume we are not grounded until we confirm that we are
         grounded = false;
         if(hit.collider != null)
         {
             grounded = hit.collider.tag == "Platform";
         }
 
+        // Inform the animator of our grounded state
         animator.SetBool("grounded", grounded);
     }
 
