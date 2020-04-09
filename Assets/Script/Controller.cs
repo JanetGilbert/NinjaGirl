@@ -5,12 +5,10 @@ using UnityEngine;
 // Control system
 public class Controller : MonoBehaviour
 {
-    private float xMove;
-    private float yMove;
-    bool jump;
+    private float moveX;
+    bool jumping;
 
     Model theModel;
-    BoxCollider2D boxCollider;
     Rigidbody2D rb;
 
 
@@ -18,57 +16,71 @@ public class Controller : MonoBehaviour
     {
         theModel = GetComponent<Manager>().theModel;
         theModel.SetController(this);
-        boxCollider = GetComponent<BoxCollider2D>();
-        rb = GetComponent<Rigidbody2D>();
+        rb = gameObject.GetComponent<Rigidbody2D>();
+        theModel.Move(0, false);
     }
 
     void Update()
     {
-        // Input
-        xMove = Input.GetAxis("Horizontal");
-        yMove = Input.GetAxis("Vertical");
-        jump = Input.GetButton("Jump");
-    }
+        if (theModel == null) return;
 
-    // Physics always should be in FixedUpdate
-    void FixedUpdate()
-    {
-        theModel.Move(xMove, yMove, jump); // Pass input to model.
-    }
-
-
-
-    public bool Grounded
-    {
-        get
+        //Ninja cannot jump or change direction while not on the ground
+        //(Ninja is not a very good ninja by cartoon ninja standards)
+        if (theModel.grounded)
         {
-            bool grounded;
-            // Determines distance between ninja and ground
-            float selfHeightOffset = (boxCollider.size.y / 2.0f) + 0.1f;
-            float rayLen = 0.05f;
-            Vector2 pos2D = (Vector2)transform.position;
-            // Debug.DrawRay(pos2D - (Vector2.up * selfHeightOffset), -Vector2.up * rayLen, Color.red);
-            RaycastHit2D hit = Physics2D.Raycast(pos2D - (Vector2.up * selfHeightOffset), -Vector2.up, rayLen);
+            //Reads horizontal control input
+            moveX = Input.GetAxis("Horizontal");
 
-            //The "grounded" boolean defaults to false, assuming the ninja is off the ground
-            grounded = false;
-
-            //Determines whether or not the ninja is actually off the ground
-            if (hit.collider != null)
+            //Determines whether the ninja is still jumping
+            if (theModel.jumpTime < 0.0f)
             {
-                if (hit.collider.CompareTag("Platform"))
-                {
-                    //In this circumstance, the ninja is in fact not off the ground.
-                    grounded = true;
-                }
+                jumping = false;
             }
+        }
 
-            return grounded;
+        //Determines when the ninja jumps
+        if (theModel.grounded && Input.GetButtonDown("Jump") && !jumping)
+        {
+            jumping = true;
+            theModel.jumpTime = theModel.maxJumpTime;
+        }
+
+        //Counts how long until the ninja can jump again
+        theModel.jumpTime -= Time.deltaTime;
+    }
+
+    // Actual movement
+    private void FixedUpdate()
+    {
+        if (theModel == null) return;
+
+        bool check = theModel.CheckGrounded;
+
+        //Sets initial horizontal and vertical velocity
+        //(Ninja jumps off ground and maintains horizontal velocity while gravity reduces vertical velocity) 
+        if (jumping)
+        {
+            if (theModel.jumpTime > 0.0f)
+            {
+                theModel.Move(moveX * theModel.speed, true);
+            }
+        }
+
+        //Maintains horizontal velocity
+        else if (theModel.grounded)
+        {
+            theModel.Move(moveX * theModel.speed, false);
         }
     }
 
+
+
+
+
     public void Move(Vector3 direction)
     {
+        if (rb == null) return;
+        Debug.Log(direction);
         rb.velocity = direction;
     }
 }

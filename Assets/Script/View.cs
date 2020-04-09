@@ -6,21 +6,26 @@ using UnityEngine;
 public class View : MonoBehaviour
 {
     public Animator animator; // Animation is specific to view.
+    public SpriteRenderer sprite;
+
+    public void SetFlip(bool isFlipped)
+    {
+        sprite.flipX = isFlipped;
+
+    }
 
     void Start()
     {
-
+        animator = GetComponent<Animator>();
+        sprite = GetComponent<SpriteRenderer>();
     }
 
 
-    void Update()
-    {
-
-    }
+   
 
     public void SetGrounded(bool isGrounded)
     {
-        animator.SetBool("Grounded", isGrounded);
+        animator.SetBool("grounded", isGrounded);
     }
 
     public void SetRotate(Quaternion rot)
@@ -30,8 +35,6 @@ public class View : MonoBehaviour
 
     public void SetAnimationSpeed(float speed)
     {
-        animator.SetFloat("MoveSpeed", speed);
+        animator.SetFloat("speed", speed);
     }
-
-
 }
