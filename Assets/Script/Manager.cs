@@ -8,23 +8,32 @@ public class Manager : MonoBehaviour
     public Model Model;
     public Rigidbody2D rb;
     public BoxCollider2D boxCollider;
-    public float speed = 10f;//
-    public float jumpspeed = 20f;//
+    public Transform transform;
+    public float speed = 10f;
+    public float jumpspeed = 30f;
+    public GameObject Ghost; // reference to the Ghost prefab
 
     void Awake()
     {
+        //Get the Compoment from the player 
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
+        transform = GetComponent<Transform>();
+        // create the Model and call the function in it to set the View and the Manager 
         Model = new Model();
         Model.SetView(GetComponent<View>());
         Model.SetManager(this);
+        // Start Generate Ghost
+        StartCoroutine(Generate());
     }
 
     void Update()
     {
+        // Chekc is the player on ground each frame;
         GroundCheck();
     }
 
+    // Check if the player on ground or not
     public void GroundCheck()
     {
         float selfHeightOffset = (boxCollider.size.y / 2.0f) + 0.1f;
@@ -41,6 +50,17 @@ public class Manager : MonoBehaviour
             }
         }
 
+    }
+
+    // Generate ghost every 3 sec
+    private IEnumerator Generate()
+    {
+        while (true)
+        {
+            GameObject temp = Instantiate(Ghost, this.transform.position, Quaternion.identity);
+            yield return new WaitForSeconds(3f);
+
+        }
     }
 
 
