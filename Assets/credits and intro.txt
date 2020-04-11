@@ -1,0 +1,18 @@
+Credit
+
+Code
+- Codes are from from the "Ninja" script. It has been refactored to the MVC format 
+
+
+Art
+- All art other than the ghost are forked from the NinJia Girl project
+- The ghost sprite was made by myself
+
+Music
+- マクロスMACROSS 82-99
+
+Introduction:
+This is a small simple game which player can move around and jump. The Ghost will change color when colliding with each other or with player.
+Enjoy this ghosts dancing scene with some Janpanese disco music.
+
+

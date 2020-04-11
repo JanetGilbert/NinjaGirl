@@ -4,27 +4,27 @@ using UnityEngine;
 
 public class Ninja : MonoBehaviour
 {
-    float moveX;
-    bool grounded;
-    bool jumping;
+    float moveX;//
+    bool grounded;//
+    bool jumping;//
 
     float jumpTime;
 
 
-    public float speed = 1.0f;
-    public float jumpspeed = 1.0f;
-    public float maxJumpTime = 1.0f;
+    public float speed = 1.0f;//
+    public float jumpspeed = 1.0f;//
+    public float maxJumpTime = 1.0f;//
 
     Animator animator;
-    Rigidbody2D rb;
-    BoxCollider2D boxCollider;
+    Rigidbody2D rb;//
+    BoxCollider2D boxCollider;//
     SpriteRenderer sprite;
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>();
-        boxCollider = GetComponent<BoxCollider2D>();
+        rb = GetComponent<Rigidbody2D>();//
+        boxCollider = GetComponent<BoxCollider2D>();//
         sprite = GetComponent<SpriteRenderer>();
     }
 
@@ -35,7 +35,6 @@ public class Ninja : MonoBehaviour
         float selfHeightOffset = (boxCollider.size.y / 2.0f) + 0.1f;
         float rayLen =  0.05f;
         Vector2 pos2D = (Vector2)transform.position;
-       // Debug.DrawRay(pos2D - (Vector2.up * selfHeightOffset), -Vector2.up * rayLen, Color.red);
         RaycastHit2D hit = Physics2D.Raycast(pos2D - (Vector2.up * selfHeightOffset), -Vector2.up, rayLen);
 
         grounded = false;
@@ -47,7 +46,7 @@ public class Ninja : MonoBehaviour
             }
         }
 
-        // Jumping
+        // ______________________________________________________________________Jumping
         if (grounded)
         {
             moveX = Input.GetAxis("Horizontal");
