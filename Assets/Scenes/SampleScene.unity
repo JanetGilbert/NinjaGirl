@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.4964124, b: 0.574817, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -307,9 +307,11 @@ GameObject:
   - component: {fileID: 1571386444}
   - component: {fileID: 1571386443}
   - component: {fileID: 1571386442}
-  - component: {fileID: 1571386447}
   - component: {fileID: 1571386446}
   - component: {fileID: 1571386445}
+  - component: {fileID: 1571386449}
+  - component: {fileID: 1571386448}
+  - component: {fileID: 1571386447}
   m_Layer: 0
   m_Name: Ninja
   m_TagString: Player
@@ -456,12 +458,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 1571386441}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de5ea80d1091547beaa63a3993619707, type: 3}
+  m_Script: {fileID: 11500000, guid: 4aefb66b7e4ad4440bbfe69030f9785f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  jumpspeed: 20
-  maxJumpTime: 0.2
+  animator: {fileID: 0}
+--- !u!114 &1571386448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571386441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c56a37622bfe7420e8b276016de8da03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1571386449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571386441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0905a719d0b142c5ae8c3d2729b5ed1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1842770162
 GameObject:
   m_ObjectHideFlags: 0

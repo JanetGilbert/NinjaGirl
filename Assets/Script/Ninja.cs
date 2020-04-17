@@ -1,14 +1,14 @@
-﻿using System.Collections;
+﻿    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Ninja : MonoBehaviour
 {
-    float moveX;
-    bool grounded;
-    bool jumping;
+        float moveX;
+        bool grounded;
+        bool jumping;
 
-    float jumpTime;
+        float jumpTime;
 
 
     public float speed = 1.0f;
