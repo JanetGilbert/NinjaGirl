@@ -14,7 +14,9 @@ public class View: MonoBehaviour
         animator = GetComponent<Animator>();
     }
     public void Update()
+
     {
+        //flip sprite based on inputs
         float smallMove = 0.0001f;
         if (Controller.xMove < -smallMove)
         {
@@ -27,6 +29,7 @@ public class View: MonoBehaviour
 
     }
 
+    //set animator parameters
     public void SetGrounded(bool isGrounded)
     {
         animator.SetBool("grounded", isGrounded);

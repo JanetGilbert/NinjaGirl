@@ -62,11 +62,12 @@ public class Model
         }
         else
         {
+            //movement in air
             moveDirection = new Vector3(moveX, moveDirection.y);
             moveDirection.x *= speed/2;
             myView.SetAnimationSpeed(moveX/2);
         }
-
+        //gravity
         moveDirection.y -= gravity * Time.deltaTime;
 
         thisCharacterController.Move(moveDirection * Time.deltaTime);
