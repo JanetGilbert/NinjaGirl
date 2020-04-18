@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.4964124, b: 0.574817, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -310,6 +310,9 @@ GameObject:
   - component: {fileID: 1571386447}
   - component: {fileID: 1571386446}
   - component: {fileID: 1571386445}
+  - component: {fileID: 1571386449}
+  - component: {fileID: 1571386448}
+  - component: {fileID: 1571386450}
   m_Layer: 0
   m_Name: Ninja
   m_TagString: Player
@@ -462,6 +465,43 @@ MonoBehaviour:
   speed: 10
   jumpspeed: 20
   maxJumpTime: 0.2
+--- !u!114 &1571386448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571386441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b86c8ed8b88c6e543bdaf37ba57e71b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1571386449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571386441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bda8a9dbb6692540bb5cc8c4e883c40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1571386450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571386441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ed1c71cb29fd8640b0c1853e1f5f02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  theNinja: {fileID: 0}
 --- !u!1 &1842770162
 GameObject:
   m_ObjectHideFlags: 0
@@ -586,8 +626,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1842770162}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.39, y: -3.17, z: 0}
-  m_LocalScale: {x: 2, y: 1, z: 1}
+  m_LocalPosition: {x: -13.37, y: -3.17, z: 0}
+  m_LocalScale: {x: 9.43824, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
