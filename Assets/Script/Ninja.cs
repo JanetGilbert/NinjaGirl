@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Ninja : MonoBehaviour
 {
-    float moveX;
-    bool grounded;
+    [HideInInspector] public float moveX;
+    [HideInInspector] public bool grounded;
     bool jumping;
 
     float jumpTime;
@@ -15,30 +15,50 @@ public class Ninja : MonoBehaviour
     public float jumpspeed = 1.0f;
     public float maxJumpTime = 1.0f;
 
-    Animator animator;
     Rigidbody2D rb;
     BoxCollider2D boxCollider;
-    SpriteRenderer sprite;
+    NinjaView ninjaView;
 
     void Start()
     {
-        animator = GetComponent<Animator>();
+        ninjaView = GetComponent<NinjaView>();
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
-        sprite = GetComponent<SpriteRenderer>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Is platform below us?
+        DetectGround();
+
+        // Jumping 
+        if (grounded)
+        {
+
+            if (jumpTime < 0.0f)
+            {
+                jumping = false;
+            }
+        }
+        jumpTime -= Time.deltaTime;
+
+        //Updates the animator based on current movement.
+        ninjaView.UpdateAnimator(moveX, grounded);
+
+    }
+
+    void DetectGround()
+    {
+        // Is platform below us? Get raycast based on position directly below height of the player's box collider
         float selfHeightOffset = (boxCollider.size.y / 2.0f) + 0.1f;
-        float rayLen =  0.05f;
+        float rayLen = 0.05f;
         Vector2 pos2D = (Vector2)transform.position;
-       // Debug.DrawRay(pos2D - (Vector2.up * selfHeightOffset), -Vector2.up * rayLen, Color.red);
+        // Debug.DrawRay(pos2D - (Vector2.up * selfHeightOffset), -Vector2.up * rayLen, Color.red);
         RaycastHit2D hit = Physics2D.Raycast(pos2D - (Vector2.up * selfHeightOffset), -Vector2.up, rayLen);
 
         grounded = false;
+        //If the raycast is touching the platform, then character is grounded and stop gravity from occuring.
         if (hit.collider != null)
         {
             if (hit.collider.CompareTag("Platform"))
@@ -46,43 +66,15 @@ public class Ninja : MonoBehaviour
                 grounded = true;
             }
         }
+    }
 
-        // Jumping
-        if (grounded)
-        {
-            moveX = Input.GetAxis("Horizontal");
-
-
-            if (jumpTime < 0.0f)
-            {
-                jumping = false;
-            }
-        }
-
-
-        bool jumpPressed = Input.GetButtonDown("Jump");
-        if (grounded && jumpPressed && !jumping)
+    public void Jump()
+    {
+        if (grounded && !jumping)
         {
             jumping = true;
             jumpTime = maxJumpTime;
         }
-
-        jumpTime -= Time.deltaTime;
-
-        // Reverse horizontal 
-        float smallMove = 0.0001f;
-        if (moveX < -smallMove)
-        {
-            sprite.flipX = true;
-        }
-        else if (moveX > smallMove)
-        {
-            sprite.flipX = false;
-        }
-
-        // Animator parameters
-        animator.SetFloat("speed", Mathf.Abs(moveX));
-        animator.SetBool("grounded", grounded);
     }
 
     // Physic stuff
